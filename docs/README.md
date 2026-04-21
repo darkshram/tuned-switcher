@@ -9,4 +9,5 @@
   * [Using application](using-application.md)
   * [Settings](settings.md)
   * [Screenshots](screenshots.md)
+  * [Localization](localization.md)
   * [Packages](packages.md)
