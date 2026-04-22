@@ -14,6 +14,8 @@ Starting with the first, the program will attempt to traverse all directories do
 
 A special helper script `i18n_update.sh` must be used for all operations with translations to ensure consistency with other parts of the project.
 
+In order to use this script, the Qt Linguist package must be installed.
+
 ## Updating translations
 
 1. Rebase the existing translations to match the latest code changes:
@@ -25,7 +27,11 @@ cd assets/i18n/
 
 2. Open the desired `*.ts` files and make changes using the Qt Linguist tool.
 
-3. Run the `i18n_update.sh` helper script again.
+3. Run the `i18n_update.sh` helper script again:
+
+```
+./i18n_update.sh
+```
 
 ## Adding a new translation
 
@@ -41,7 +47,9 @@ cd assets/i18n/
 lupdate-qt6 -locations relative ../../src/ -ts tuned-switcher_en.ts -no-obsolete
 ```
 
-3. Run the `i18n_update.sh` helper script:
+3. Open the generated `*.ts` file and make changes using the Qt Linguist tool.
+
+4. Run the `i18n_update.sh` helper script:
 
 ```
 ./i18n_update.sh
