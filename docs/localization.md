@@ -14,6 +14,8 @@ Starting with the first, the program will attempt to traverse all directories do
 
 A special helper script `i18n_update.sh` must be used for all operations with translations to ensure consistency with other parts of the project.
 
+In order to use this script, the Qt Linguist package must be installed.
+
 ## Updating translations
 
 1. Rebase the existing translations to match the latest code changes:
