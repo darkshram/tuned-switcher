@@ -25,7 +25,11 @@ cd assets/i18n/
 
 2. Open the desired `*.ts` files and make changes using the Qt Linguist tool.
 
-3. Run the `i18n_update.sh` helper script again.
+3. Run the `i18n_update.sh` helper script again:
+
+```
+./i18n_update.sh
+```
 
 ## Adding a new translation
 
