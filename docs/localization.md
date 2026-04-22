@@ -41,7 +41,9 @@ cd assets/i18n/
 lupdate-qt6 -locations relative ../../src/ -ts tuned-switcher_en.ts -no-obsolete
 ```
 
-3. Run the `i18n_update.sh` helper script:
+3. Open the generated `*.ts` file and make changes using the Qt Linguist tool.
+
+4. Run the `i18n_update.sh` helper script:
 
 ```
 ./i18n_update.sh
