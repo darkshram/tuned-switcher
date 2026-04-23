@@ -55,4 +55,9 @@ lupdate-qt6 -locations relative ../../src/ -ts tuned-switcher_en.ts -no-obsolete
 ./i18n_update.sh
 ```
 
-5. Open the `assets/desktop/tuned-switcher.desktop.in` file in any text editor and add translations for the `GenericName` and `Comment` sections.
+5. Open the `assets/desktop/tuned-switcher.desktop.in` file in any text editor and add translations for the `GenericName` and `Comment` sections:
+
+```
+GenericName[en]=
+Comment[en]=
+```
