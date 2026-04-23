@@ -61,3 +61,5 @@ lupdate-qt6 -locations relative ../../src/ -ts tuned-switcher_en.ts -no-obsolete
 GenericName[en]=
 Comment[en]=
 ```
+
+Replace **en** with the desired two-letter lowercase language name, as in the commands above.
