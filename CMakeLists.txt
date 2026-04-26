@@ -32,6 +32,7 @@ option(BUILD_MANPAGE "Build and install manpage with documentation." OFF)
 option(BUILD_TESTS "Build various tests." OFF)
 option(LINK_ALL_STATICALLY "Link the program against all libraries statically (no dependencies mode)." OFF)
 option(LINK_ENABLE_OPTIMIZATIONS "Enable link-time optimizations if supported by current C++ compiler." OFF)
+option(TESTS_ENABLE_NETWORK "Enable network access for the tests." OFF)
 
 # ======================================================
 # ==================== Target names ====================

@@ -20,4 +20,10 @@ if (BUILD_TESTS)
         REQUIRED
     )
     mark_as_advanced(DesktopFileValidate_EXECUTABLE)
+
+    set(AppstreamUtil_PARAMETERS "validate")
+    if (NOT TESTS_ENABLE_NETWORK)
+        list(APPEND AppstreamUtil_PARAMETERS "--nonet")
+    endif()
+    mark_as_advanced(AppstreamUtil_PARAMETERS)
 endif()
