@@ -71,7 +71,6 @@ include(GNUInstallDirs)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 include(FindPandoc)
-include(FindTestHelpers)
 
 # ======================================================
 # =========== Link time optimizations checks ===========
@@ -321,6 +320,10 @@ endif()
 
 if (BUILD_TESTS)
     enable_testing()
-    add_test(NAME test-desktop COMMAND ${DesktopFileValidate_EXECUTABLE} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.desktop")
-    add_test(NAME test-metainfo COMMAND ${AppstreamUtil_EXECUTABLE} ${AppstreamUtil_PARAMETERS} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.metainfo.xml")
+
+    find_package(AppstreamUtil REQUIRED)
+    find_package(DesktopFileValidate REQUIRED)
+
+    add_test(NAME test-desktop COMMAND ${DESKTOPFILEVALIDATE_EXECUTABLE} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.desktop")
+    add_test(NAME test-metainfo COMMAND ${APPSTREAMUTIL_EXECUTABLE} ${APPSTREAMUTIL_PARAMETERS} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.metainfo.xml")
 endif()
