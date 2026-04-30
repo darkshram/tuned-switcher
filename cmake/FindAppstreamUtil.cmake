@@ -24,11 +24,6 @@ if (APPSTREAMUTIL_EXECUTABLE)
         set(APPSTREAMUTIL_VERSION_STRING "")
     endif()
     unset(_appstreamutil_version)
-
-    set(APPSTREAMUTIL_PARAMETERS "validate")
-    if (NOT TESTS_ENABLE_NETWORK)
-        list(APPEND APPSTREAMUTIL_PARAMETERS "--nonet")
-    endif()
 endif()
 
 include(FindPackageHandleStandardArgs)
@@ -37,3 +32,8 @@ find_package_handle_standard_args(
     REQUIRED_VARS APPSTREAMUTIL_EXECUTABLE
     VERSION_VAR APPSTREAMUTIL_VERSION_STRING
 )
+
+set(APPSTREAMUTIL_PARAMETERS "validate")
+if (NOT TESTS_ENABLE_NETWORK)
+    list(APPEND APPSTREAMUTIL_PARAMETERS "--nonet")
+endif()
