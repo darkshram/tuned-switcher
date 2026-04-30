@@ -18,7 +18,7 @@ if (DESKTOPFILEVALIDATE_EXECUTABLE)
         ERROR_QUIET
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
-    if ("${_desktopfilevalidate_version}" MATCHES "^desktop-file-validate.+([0-9]+\.[0-9]+)")
+    if ("${_desktopfilevalidate_version}" MATCHES "^desktop-file-validate[ \t]+([0-9.]+)")
         set(DESKTOPFILEVALIDATE_VERSION_STRING "${CMAKE_MATCH_1}")
     else()
         set(DESKTOPFILEVALIDATE_VERSION_STRING "")

@@ -18,7 +18,7 @@ if (APPSTREAMUTIL_EXECUTABLE)
         ERROR_QUIET
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
-    if ("${_appstreamutil_version}" MATCHES "^[Vv]ersion.+([0-9]+\.[0-9]+\.[0-9]+)")
+    if ("${_appstreamutil_version}" MATCHES "^[Vv]ersion[:]?[ \t]+([0-9.]+)")
         set(APPSTREAMUTIL_VERSION_STRING "${CMAKE_MATCH_1}")
     else()
         set(APPSTREAMUTIL_VERSION_STRING "")
