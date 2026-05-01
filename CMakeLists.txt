@@ -170,12 +170,16 @@ set(LIBRARY_SOURCES
     src/lib/translationmanager/translationmanager.cpp
     src/lib/tunedmanager/tunedmanager.cpp
     src/lib/tunedtypes/tunedtypes.cpp
+)
+
+set(LIBRARY_CFG_SOURCES
     "${CMAKE_CURRENT_BINARY_DIR}/appconstants/appconstants.cpp"
 )
 
 add_library(${LIB_NAME} OBJECT
     ${LIBRARY_HEADERS}
     ${LIBRARY_SOURCES}
+    ${LIBRARY_CFG_SOURCES}
 )
 
 target_include_directories(${LIB_NAME} PUBLIC
