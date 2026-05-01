@@ -32,6 +32,7 @@ option(BUILD_MANPAGE "Build and install manpage with documentation." OFF)
 option(BUILD_TESTS "Build various tests." OFF)
 option(LINK_ALL_STATICALLY "Link the program against all libraries statically (no dependencies mode)." OFF)
 option(LINK_ENABLE_OPTIMIZATIONS "Enable link-time optimizations if supported by current C++ compiler." OFF)
+option(TESTS_ENABLE_NETWORK "Enable network access for the tests." OFF)
 
 # ======================================================
 # ==================== Target names ====================
@@ -67,10 +68,7 @@ include(GNUInstallDirs)
 # ============= External custom imports ================
 # ======================================================
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
-include(FindPandoc)
-include(FindTestHelpers)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 # ======================================================
 # =========== Link time optimizations checks ===========
@@ -130,12 +128,6 @@ endif()
 # ================== Library target ====================
 # ======================================================
 
-configure_file(
-    src/lib/appconstants/appconstants.cpp.in
-    appconstants/appconstants.cpp
-    @ONLY
-)
-
 set(LIBRARY_HEADERS
     src/lib/appconstants/appconstants.h
     src/lib/autorunfile/autorunfile.h
@@ -172,12 +164,22 @@ set(LIBRARY_SOURCES
     src/lib/translationmanager/translationmanager.cpp
     src/lib/tunedmanager/tunedmanager.cpp
     src/lib/tunedtypes/tunedtypes.cpp
+)
+
+configure_file(
+    src/lib/appconstants/appconstants.cpp.in
+    appconstants/appconstants.cpp
+    @ONLY
+)
+
+set(LIBRARY_CFG_SOURCES
     "${CMAKE_CURRENT_BINARY_DIR}/appconstants/appconstants.cpp"
 )
 
 add_library(${LIB_NAME} OBJECT
     ${LIBRARY_HEADERS}
     ${LIBRARY_SOURCES}
+    ${LIBRARY_CFG_SOURCES}
 )
 
 target_include_directories(${LIB_NAME} PUBLIC
@@ -308,6 +310,7 @@ if (BUILD_DOC)
 endif()
 
 if (BUILD_MANPAGE)
+    find_package(Pandoc REQUIRED)
     configure_file("assets/manpage/${APP_NAME}.md.in" "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.md" @ONLY)
     pandoc_build_manpage("${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.md" "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.1")
     add_custom_target(${MAN_NAME} ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.1")
@@ -320,6 +323,10 @@ endif()
 
 if (BUILD_TESTS)
     enable_testing()
-    add_test(NAME test-desktop COMMAND ${DesktopFileValidate_EXECUTABLE} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.desktop")
-    add_test(NAME test-metainfo COMMAND ${AppstreamUtil_EXECUTABLE} validate "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.metainfo.xml")
+
+    find_package(AppstreamUtil REQUIRED)
+    find_package(DesktopFileValidate REQUIRED)
+
+    add_test(NAME test-desktop COMMAND ${DESKTOPFILEVALIDATE_EXECUTABLE} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.desktop")
+    add_test(NAME test-metainfo COMMAND ${APPSTREAMUTIL_EXECUTABLE} ${APPSTREAMUTIL_PARAMETERS} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.metainfo.xml")
 endif()

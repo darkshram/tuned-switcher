@@ -25,6 +25,7 @@ This project supports the following build-time configuration options, which can 
 | BUILD_TESTS | Build various tests. | OFF |
 | LINK_ALL_STATICALLY | Link the program against all libraries statically (no dependencies mode). | OFF |
 | LINK_ENABLE_OPTIMIZATIONS | Enable link-time optimizations if supported by current C++ compiler. | OFF |
+| TESTS_ENABLE_NETWORK | Enable network access for the tests. | OFF |
 
 Any other non-default options related to external dependencies are not supported and should not be used.
 
