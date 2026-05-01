@@ -128,12 +128,6 @@ endif()
 # ================== Library target ====================
 # ======================================================
 
-configure_file(
-    src/lib/appconstants/appconstants.cpp.in
-    appconstants/appconstants.cpp
-    @ONLY
-)
-
 set(LIBRARY_HEADERS
     src/lib/appconstants/appconstants.h
     src/lib/autorunfile/autorunfile.h
@@ -170,6 +164,12 @@ set(LIBRARY_SOURCES
     src/lib/translationmanager/translationmanager.cpp
     src/lib/tunedmanager/tunedmanager.cpp
     src/lib/tunedtypes/tunedtypes.cpp
+)
+
+configure_file(
+    src/lib/appconstants/appconstants.cpp.in
+    appconstants/appconstants.cpp
+    @ONLY
 )
 
 set(LIBRARY_CFG_SOURCES
