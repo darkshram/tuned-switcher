@@ -125,6 +125,23 @@ if (BUILD_DOC)
 endif()
 
 # ======================================================
+# ================== Pandoc detection ==================
+# ======================================================
+
+if (BUILD_MANPAGE)
+    find_package(Pandoc REQUIRED)
+endif()
+
+# ======================================================
+# ============= Tests validators detection =============
+# ======================================================
+
+if (BUILD_TESTS)
+    find_package(AppstreamUtil REQUIRED)
+    find_package(DesktopFileValidate REQUIRED)
+endif()
+
+# ======================================================
 # ================== Library target ====================
 # ======================================================
 
@@ -310,7 +327,6 @@ if (BUILD_DOC)
 endif()
 
 if (BUILD_MANPAGE)
-    find_package(Pandoc REQUIRED)
     configure_file("assets/manpage/${APP_NAME}.md.in" "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.md" @ONLY)
     pandoc_build_manpage("${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.md" "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.1")
     add_custom_target(${MAN_NAME} ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.1")
@@ -323,10 +339,6 @@ endif()
 
 if (BUILD_TESTS)
     enable_testing()
-
-    find_package(AppstreamUtil REQUIRED)
-    find_package(DesktopFileValidate REQUIRED)
-
     add_test(NAME test-desktop COMMAND ${DESKTOPFILEVALIDATE_EXECUTABLE} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.desktop")
     add_test(NAME test-metainfo COMMAND ${APPSTREAMUTIL_EXECUTABLE} ${APPSTREAMUTIL_PARAMETERS} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.metainfo.xml")
 endif()
