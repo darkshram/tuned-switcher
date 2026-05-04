@@ -133,6 +133,15 @@ if (BUILD_MANPAGE)
 endif()
 
 # ======================================================
+# ============= Tests validators detection =============
+# ======================================================
+
+if (BUILD_TESTS)
+    find_package(AppstreamUtil REQUIRED)
+    find_package(DesktopFileValidate REQUIRED)
+endif()
+
+# ======================================================
 # ================== Library target ====================
 # ======================================================
 
@@ -330,10 +339,6 @@ endif()
 
 if (BUILD_TESTS)
     enable_testing()
-
-    find_package(AppstreamUtil REQUIRED)
-    find_package(DesktopFileValidate REQUIRED)
-
     add_test(NAME test-desktop COMMAND ${DESKTOPFILEVALIDATE_EXECUTABLE} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.desktop")
     add_test(NAME test-metainfo COMMAND ${APPSTREAMUTIL_EXECUTABLE} ${APPSTREAMUTIL_PARAMETERS} "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.metainfo.xml")
 endif()
