@@ -125,6 +125,14 @@ if (BUILD_DOC)
 endif()
 
 # ======================================================
+# ================== Pandoc detection ==================
+# ======================================================
+
+if (BUILD_MANPAGE)
+    find_package(Pandoc REQUIRED)
+endif()
+
+# ======================================================
 # ================== Library target ====================
 # ======================================================
 
@@ -310,7 +318,6 @@ if (BUILD_DOC)
 endif()
 
 if (BUILD_MANPAGE)
-    find_package(Pandoc REQUIRED)
     configure_file("assets/manpage/${APP_NAME}.md.in" "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.md" @ONLY)
     pandoc_build_manpage("${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.md" "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.1")
     add_custom_target(${MAN_NAME} ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.1")
