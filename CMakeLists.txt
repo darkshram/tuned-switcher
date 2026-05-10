@@ -95,6 +95,7 @@ find_package(Qt6 6.2.0
         DBus
         Gui
         LinguistTools
+        Svg
         Widgets
 )
 
@@ -207,6 +208,7 @@ target_link_libraries(${LIB_NAME} PUBLIC
     Qt6::Core
     Qt6::DBus
     Qt6::Gui
+    Qt6::Svg
     Qt6::Widgets
 )
 
@@ -279,6 +281,7 @@ target_link_libraries(${APP_NAME} PRIVATE
     Qt6::Core
     Qt6::DBus
     Qt6::Gui
+    Qt6::Svg
     Qt6::Widgets
     ${LIB_NAME}
 )
