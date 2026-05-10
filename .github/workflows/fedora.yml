@@ -46,7 +46,7 @@ jobs:
         sudo dnf -y install cmake ninja-build
     - name: Installing development packages
       run: |
-        sudo dnf -y install qt6-qtbase-devel qt6-qttools-devel
+        sudo dnf -y install qt6-qtbase-devel qt6-qttools-devel qt6-qtsvg-devel
     - name: Installing helper tools
       run: |
         sudo dnf -y install desktop-file-utils libappstream-glib doxygen pandoc
