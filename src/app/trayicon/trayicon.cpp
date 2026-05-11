@@ -106,6 +106,19 @@ void TrayIcon::serviceEnable()
     }
 }
 
+void TrayIcon::serviceDisable()
+{
+    if (tunedManager -> Disable())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully disabled!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to disable the service! Current settings remain unchanged."));
+    }
+}
+
 void TrayIcon::checkTunedRunning()
 {
     if (!tunedManager -> IsRunning())
@@ -237,7 +250,7 @@ QMenu* TrayIcon::createServiceControlSubmenu(QWidget* parent)
     trayIconServiceControl -> addAction(enableAction);
 
     QAction* disableAction = new QAction(tr("Disable the service"), trayIconServiceControl);
-    connect(disableAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodDisable); });
+    connect(disableAction, &QAction::triggered, this, &TrayIcon::serviceDisableEvent);
     trayIconServiceControl -> addAction(disableAction);
 
     QAction* reloadAction = new QAction(tr("Reload the service"), trayIconServiceControl);
@@ -347,6 +360,14 @@ void TrayIcon::serviceEnableEvent()
     {
         notifications -> ShowNotification(tr("Service control"), tr("The service is already enabled! No actions performed."));
     }
+}
+
+void TrayIcon::serviceDisableEvent()
+{
+    if (tunedManager -> IsProfileRunning())
+        serviceDisable();
+    else
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already disabled! No actions performed."));
 }
 
 void TrayIcon::serviceControlEvent(const TunedManager::ServiceMethod method)
