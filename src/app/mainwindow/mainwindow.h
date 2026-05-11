@@ -118,6 +118,11 @@ private slots:
     void serviceControlEvent(const TunedManager::ServiceMethod);
 
     /**
+     * "Enable the service" menu item clicked event slot (handler).
+    */
+    void serviceEnableEvent();
+
+    /**
      * "Show settings" menu item clicked event slot (handler).
     */
     void showSettingsEvent();
@@ -169,6 +174,16 @@ private:
      * start it with DBus methods.
     */
     void checkTunedRunning();
+
+    /**
+     * Enable the Tuned service with DBus methods.
+    */
+    void serviceEnable();
+
+    /**
+     * Explicitly set the active profile if it is not selected.
+    */
+    void setProfileExplicitly();
 
     /**
      * Get available Tuned profiles for internal usage.

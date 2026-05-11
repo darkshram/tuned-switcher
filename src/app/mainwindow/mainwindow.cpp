@@ -159,6 +159,19 @@ void MainWindow::checkServiceRunning()
     }
 }
 
+void MainWindow::serviceEnable()
+{
+    if (tunedManager -> Enable())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully enabled!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to enable the service! Current settings remain unchanged."));
+    }
+}
+
 void MainWindow::checkTunedRunning()
 {
     if (!tunedManager -> IsRunning())
@@ -195,7 +208,7 @@ QMenu* MainWindow::createServiceControlSubmenu(QWidget* parent)
     serviceControlMenu -> setTitle(tr("Service control"));
 
     QAction* enableAction = new QAction(tr("Enable the service"), serviceControlMenu);
-    connect(enableAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodEnable); });
+    connect(enableAction, &QAction::triggered, this, &MainWindow::serviceEnableEvent);
     serviceControlMenu -> addAction(enableAction);
 
     QAction* disableAction = new QAction(tr("Disable the service"), serviceControlMenu);
@@ -271,6 +284,12 @@ void MainWindow::setCurrentProfile(const QString& profile)
     ui -> ProfileSelector -> setCurrentIndex(ui -> ProfileSelector -> findText(profile));
 }
 
+void MainWindow::setProfileExplicitly()
+{
+    if (tunedManager -> GetActiveProfile().isEmpty())
+        tunedManager -> SetProfileModeAuto();
+}
+
 void MainWindow::markCurrentProfile()
 {
     setCurrentProfile(tunedManager -> GetActiveProfile());
@@ -335,6 +354,19 @@ void MainWindow::profileSelectedEvent(const QString& profile)
     const QTunedResult result = tunedManager -> SetActiveProfile(profile);
     if (!result.Success)
         notifications -> ShowNotification(tr("Profile switch error"), tr("Failed to switch the active profile: %1").arg(result.Message));
+}
+
+void MainWindow::serviceEnableEvent()
+{
+    if (!tunedManager -> IsProfileRunning())
+    {
+        setProfileExplicitly();
+        serviceEnable();
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already enabled! No actions performed."));
+    }
 }
 
 void MainWindow::closeFormEvent()
