@@ -93,6 +93,19 @@ void TrayIcon::checkServiceRunning()
     }
 }
 
+void TrayIcon::serviceEnable()
+{
+    if (tunedManager -> Enable())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully enabled!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to enable the service! Current settings remain unchanged."));
+    }
+}
+
 void TrayIcon::checkTunedRunning()
 {
     if (!tunedManager -> IsRunning())
@@ -148,6 +161,12 @@ void TrayIcon::setCurrentProfile(const QString& profile)
         else
             resetCurrentProfile();
     }
+}
+
+void TrayIcon::setProfileExplicitly()
+{
+    if (tunedManager -> GetActiveProfile().isEmpty())
+        tunedManager -> SetProfileModeAuto();
 }
 
 void TrayIcon::markCurrentProfile()
@@ -214,7 +233,7 @@ QMenu* TrayIcon::createServiceControlSubmenu(QWidget* parent)
     trayIconServiceControl -> setTitle(tr("Service control"));
 
     QAction* enableAction = new QAction(tr("Enable the service"), trayIconServiceControl);
-    connect(enableAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodEnable); });
+    connect(enableAction, &QAction::triggered, this, &TrayIcon::serviceEnableEvent);
     trayIconServiceControl -> addAction(enableAction);
 
     QAction* disableAction = new QAction(tr("Disable the service"), trayIconServiceControl);
@@ -315,6 +334,19 @@ void TrayIcon::profileSelectedEvent(QAction* action)
     const QTunedResult result = tunedManager -> SetActiveProfile(action -> text());
     if (!result.Success)
         notifications -> ShowNotification(tr("Profile switch error"), tr("Failed to switch the active profile: %1").arg(result.Message));
+}
+
+void TrayIcon::serviceEnableEvent()
+{
+    if (!tunedManager -> IsProfileRunning())
+    {
+        setProfileExplicitly();
+        serviceEnable();
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already enabled! No actions performed."));
+    }
 }
 
 void TrayIcon::serviceControlEvent(const TunedManager::ServiceMethod method)
