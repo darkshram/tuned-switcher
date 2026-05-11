@@ -185,6 +185,14 @@ void MainWindow::serviceDisable()
     }
 }
 
+void MainWindow::serviceReload()
+{
+    if (tunedManager -> Reload())
+        notifications -> ShowNotification(tr("Service control"), tr("The service configuration has been successfully reloaded!"));
+    else
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to reload the service configuration! Current settings remain unchanged."));
+}
+
 void MainWindow::checkTunedRunning()
 {
     if (!tunedManager -> IsRunning())
@@ -229,7 +237,7 @@ QMenu* MainWindow::createServiceControlSubmenu(QWidget* parent)
     serviceControlMenu -> addAction(disableAction);
 
     QAction* reloadAction = new QAction(tr("Reload the service"), serviceControlMenu);
-    connect(reloadAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodReload); });
+    connect(reloadAction, &QAction::triggered, this, &MainWindow::serviceReloadEvent);
     serviceControlMenu -> addAction(reloadAction);
 
     return serviceControlMenu;
@@ -388,6 +396,11 @@ void MainWindow::serviceDisableEvent()
         serviceDisable();
     else
         notifications -> ShowNotification(tr("Service control"), tr("The service is already disabled! No actions performed."));
+}
+
+void MainWindow::serviceReloadEvent()
+{
+    serviceReload();
 }
 
 void MainWindow::closeFormEvent()
