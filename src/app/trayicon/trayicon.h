@@ -80,6 +80,11 @@ private slots:
     void serviceDisableEvent();
 
     /**
+     * "Reload the service" menu item clicked event slot (handler).
+    */
+    void serviceReloadEvent();
+
+    /**
      * "Show settings" menu item clicked event slot (handler).
     */
     void showSettingsEvent();
@@ -141,6 +146,11 @@ private:
      * Disable the Tuned service with DBus methods.
     */
     void serviceDisable();
+
+    /**
+     * Reload the Tuned service with DBus methods.
+    */
+    void serviceReload();
 
     /**
      * Explicitly set the active profile if it is not selected.

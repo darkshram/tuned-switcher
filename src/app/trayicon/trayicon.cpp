@@ -119,6 +119,14 @@ void TrayIcon::serviceDisable()
     }
 }
 
+void TrayIcon::serviceReload()
+{
+    if (tunedManager -> Reload())
+        notifications -> ShowNotification(tr("Service control"), tr("The service configuration has been successfully reloaded!"));
+    else
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to reload the service configuration! Current settings remain unchanged."));
+}
+
 void TrayIcon::checkTunedRunning()
 {
     if (!tunedManager -> IsRunning())
@@ -254,7 +262,7 @@ QMenu* TrayIcon::createServiceControlSubmenu(QWidget* parent)
     trayIconServiceControl -> addAction(disableAction);
 
     QAction* reloadAction = new QAction(tr("Reload the service"), trayIconServiceControl);
-    connect(reloadAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodReload); });
+    connect(reloadAction, &QAction::triggered, this, &TrayIcon::serviceReloadEvent);
     trayIconServiceControl -> addAction(reloadAction);
 
     return trayIconServiceControl;
@@ -368,6 +376,11 @@ void TrayIcon::serviceDisableEvent()
         serviceDisable();
     else
         notifications -> ShowNotification(tr("Service control"), tr("The service is already disabled! No actions performed."));
+}
+
+void TrayIcon::serviceReloadEvent()
+{
+    serviceReload();
 }
 
 void TrayIcon::serviceControlEvent(const TunedManager::ServiceMethod method)
