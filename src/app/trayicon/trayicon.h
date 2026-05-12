@@ -64,12 +64,6 @@ private slots:
     void profileChangedEvent(const QString&, const bool, const QString&);
 
     /**
-     * "Service control" menu item clicked event slot (handler).
-     * @param method Service control method name.
-    */
-    void serviceControlEvent(const TunedManager::ServiceMethod);
-
-    /**
      * "Enable the service" menu item clicked event slot (handler).
     */
     void serviceEnableEvent();
