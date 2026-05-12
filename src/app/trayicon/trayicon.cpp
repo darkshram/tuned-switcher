@@ -127,6 +127,19 @@ void TrayIcon::serviceReload()
         notifications -> ShowNotification(tr("Service control error"), tr("Failed to reload the service configuration! Current settings remain unchanged."));
 }
 
+void TrayIcon::serviceShutdown()
+{
+    if (tunedManager -> Shutdown())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully shut down!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to shut down the service! Current settings remain unchanged."));
+    }
+}
+
 void TrayIcon::checkTunedRunning()
 {
     if (!tunedManager -> IsRunning())
@@ -265,6 +278,10 @@ QMenu* TrayIcon::createServiceControlSubmenu(QWidget* parent)
     connect(reloadAction, &QAction::triggered, this, &TrayIcon::serviceReloadEvent);
     trayIconServiceControl -> addAction(reloadAction);
 
+    QAction* shutdownAction = new QAction(tr("Shut down the service"), trayIconServiceControl);
+    connect(shutdownAction, &QAction::triggered, this, &TrayIcon::serviceShutdownEvent);
+    trayIconServiceControl -> addAction(shutdownAction);
+
     return trayIconServiceControl;
 }
 
@@ -381,6 +398,14 @@ void TrayIcon::serviceDisableEvent()
 void TrayIcon::serviceReloadEvent()
 {
     serviceReload();
+}
+
+void TrayIcon::serviceShutdownEvent()
+{
+    if (tunedManager -> IsProfileRunning() && !tunedManager -> GetActiveProfile().isEmpty())
+        serviceShutdown();
+    else
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already shut down! No actions performed."));
 }
 
 void TrayIcon::showSettingsEvent()
