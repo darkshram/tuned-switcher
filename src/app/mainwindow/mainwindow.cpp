@@ -334,19 +334,6 @@ void MainWindow::setNotificationsMode()
     notifications -> SetNotificationSoundMode(settings -> GetSoundEnabled());
 }
 
-void MainWindow::serviceControlEvent(const TunedManager::ServiceMethod method)
-{
-    if (tunedManager -> RunServiceMethod(method))
-    {
-        markServiceMode();
-        notifications -> ShowNotification(tr("Service control"), tr("The requested service control operation completed successfully."));
-    }
-    else
-    {
-        notifications -> ShowNotification(tr("Service control error"), tr("Failed to perform the requested service control operation! Current settings remain unchanged."));
-    }
-}
-
 void MainWindow::exitApplication()
 {
     QTimer::singleShot(AppConstants::TimerDelay(), qApp, &QApplication::quit);
