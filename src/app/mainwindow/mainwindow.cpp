@@ -324,7 +324,7 @@ void MainWindow::setCurrentProfile(const QString& profile)
 
 void MainWindow::setProfileExplicitly()
 {
-    if (tunedManager -> GetActiveProfile().isEmpty())
+    if (tunedManager -> IsProfileEmpty())
         tunedManager -> SetProfileModeAuto();
 }
 
@@ -409,7 +409,7 @@ void MainWindow::serviceReloadEvent()
 
 void MainWindow::serviceShutdownEvent()
 {
-    if (tunedManager -> IsProfileRunning() && !tunedManager -> GetActiveProfile().isEmpty())
+    if (tunedManager -> IsProfileRunning() && !tunedManager -> IsProfileEmpty())
         serviceShutdown();
     else
         notifications -> ShowNotification(tr("Service control"), tr("The service is already shut down! No actions performed."));
