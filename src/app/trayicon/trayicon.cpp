@@ -199,7 +199,7 @@ void TrayIcon::setCurrentProfile(const QString& profile)
 
 void TrayIcon::setProfileExplicitly()
 {
-    if (tunedManager -> GetActiveProfile().isEmpty())
+    if (tunedManager -> IsProfileEmpty())
         tunedManager -> SetProfileModeAuto();
 }
 
@@ -402,7 +402,7 @@ void TrayIcon::serviceReloadEvent()
 
 void TrayIcon::serviceShutdownEvent()
 {
-    if (tunedManager -> IsProfileRunning() && !tunedManager -> GetActiveProfile().isEmpty())
+    if (tunedManager -> IsProfileRunning() && !tunedManager -> IsProfileEmpty())
         serviceShutdown();
     else
         notifications -> ShowNotification(tr("Service control"), tr("The service is already shut down! No actions performed."));
