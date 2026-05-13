@@ -93,6 +93,53 @@ void TrayIcon::checkServiceRunning()
     }
 }
 
+void TrayIcon::serviceEnable()
+{
+    if (tunedManager -> Enable())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully enabled!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to enable the service! Current settings remain unchanged."));
+    }
+}
+
+void TrayIcon::serviceDisable()
+{
+    if (tunedManager -> Disable())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully disabled!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to disable the service! Current settings remain unchanged."));
+    }
+}
+
+void TrayIcon::serviceReload()
+{
+    if (tunedManager -> Reload())
+        notifications -> ShowNotification(tr("Service control"), tr("The service configuration has been successfully reloaded!"));
+    else
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to reload the service configuration! Current settings remain unchanged."));
+}
+
+void TrayIcon::serviceShutdown()
+{
+    if (tunedManager -> Shutdown())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully shut down!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to shut down the service! Current settings remain unchanged."));
+    }
+}
+
 void TrayIcon::checkTunedRunning()
 {
     if (!tunedManager -> IsRunning())
@@ -148,6 +195,12 @@ void TrayIcon::setCurrentProfile(const QString& profile)
         else
             resetCurrentProfile();
     }
+}
+
+void TrayIcon::setProfileExplicitly()
+{
+    if (tunedManager -> IsProfileEmpty())
+        tunedManager -> SetProfileModeAuto();
 }
 
 void TrayIcon::markCurrentProfile()
@@ -214,16 +267,20 @@ QMenu* TrayIcon::createServiceControlSubmenu(QWidget* parent)
     trayIconServiceControl -> setTitle(tr("Service control"));
 
     QAction* enableAction = new QAction(tr("Enable the service"), trayIconServiceControl);
-    connect(enableAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodEnable); });
+    connect(enableAction, &QAction::triggered, this, &TrayIcon::serviceEnableEvent);
     trayIconServiceControl -> addAction(enableAction);
 
     QAction* disableAction = new QAction(tr("Disable the service"), trayIconServiceControl);
-    connect(disableAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodDisable); });
+    connect(disableAction, &QAction::triggered, this, &TrayIcon::serviceDisableEvent);
     trayIconServiceControl -> addAction(disableAction);
 
     QAction* reloadAction = new QAction(tr("Reload the service"), trayIconServiceControl);
-    connect(reloadAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodReload); });
+    connect(reloadAction, &QAction::triggered, this, &TrayIcon::serviceReloadEvent);
     trayIconServiceControl -> addAction(reloadAction);
+
+    QAction* shutdownAction = new QAction(tr("Shut down the service"), trayIconServiceControl);
+    connect(shutdownAction, &QAction::triggered, this, &TrayIcon::serviceShutdownEvent);
+    trayIconServiceControl -> addAction(shutdownAction);
 
     return trayIconServiceControl;
 }
@@ -317,17 +374,38 @@ void TrayIcon::profileSelectedEvent(QAction* action)
         notifications -> ShowNotification(tr("Profile switch error"), tr("Failed to switch the active profile: %1").arg(result.Message));
 }
 
-void TrayIcon::serviceControlEvent(const TunedManager::ServiceMethod method)
+void TrayIcon::serviceEnableEvent()
 {
-    if (tunedManager -> RunServiceMethod(method))
+    if (!tunedManager -> IsProfileRunning())
     {
-        markServiceMode();
-        notifications -> ShowNotification(tr("Service control"), tr("The requested service control operation completed successfully."));
+        setProfileExplicitly();
+        serviceEnable();
     }
     else
     {
-        notifications -> ShowNotification(tr("Service control error"), tr("Failed to perform the requested service control operation! Current settings remain unchanged."));
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already enabled! No actions performed."));
     }
+}
+
+void TrayIcon::serviceDisableEvent()
+{
+    if (tunedManager -> IsProfileRunning())
+        serviceDisable();
+    else
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already disabled! No actions performed."));
+}
+
+void TrayIcon::serviceReloadEvent()
+{
+    serviceReload();
+}
+
+void TrayIcon::serviceShutdownEvent()
+{
+    if (tunedManager -> IsProfileRunning() && !tunedManager -> IsProfileEmpty())
+        serviceShutdown();
+    else
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already shut down! No actions performed."));
 }
 
 void TrayIcon::showSettingsEvent()

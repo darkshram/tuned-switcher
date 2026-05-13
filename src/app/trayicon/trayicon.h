@@ -64,10 +64,24 @@ private slots:
     void profileChangedEvent(const QString&, const bool, const QString&);
 
     /**
-     * "Service control" menu item clicked event slot (handler).
-     * @param method Service control method name.
+     * "Enable the service" menu item clicked event slot (handler).
     */
-    void serviceControlEvent(const TunedManager::ServiceMethod);
+    void serviceEnableEvent();
+
+    /**
+     * "Disable the service" menu item clicked event slot (handler).
+    */
+    void serviceDisableEvent();
+
+    /**
+     * "Reload the service" menu item clicked event slot (handler).
+    */
+    void serviceReloadEvent();
+
+    /**
+     * "Shut down the service" menu item clicked event slot (handler).
+    */
+    void serviceShutdownEvent();
 
     /**
      * "Show settings" menu item clicked event slot (handler).
@@ -121,6 +135,31 @@ private:
      * start it with DBus methods.
     */
     void checkTunedRunning();
+
+    /**
+     * Enable the Tuned service with DBus methods.
+    */
+    void serviceEnable();
+
+    /**
+     * Disable the Tuned service with DBus methods.
+    */
+    void serviceDisable();
+
+    /**
+     * Reload the Tuned service with DBus methods.
+    */
+    void serviceReload();
+
+    /**
+     * Shut down the Tuned service with DBus methods.
+    */
+    void serviceShutdown();
+
+    /**
+     * Explicitly set the active profile if it is not selected.
+    */
+    void setProfileExplicitly();
 
     /**
      * Create an instance of the QSystemTrayIcon and set

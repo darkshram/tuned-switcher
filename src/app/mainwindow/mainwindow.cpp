@@ -159,6 +159,53 @@ void MainWindow::checkServiceRunning()
     }
 }
 
+void MainWindow::serviceEnable()
+{
+    if (tunedManager -> Enable())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully enabled!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to enable the service! Current settings remain unchanged."));
+    }
+}
+
+void MainWindow::serviceDisable()
+{
+    if (tunedManager -> Disable())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully disabled!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to disable the service! Current settings remain unchanged."));
+    }
+}
+
+void MainWindow::serviceReload()
+{
+    if (tunedManager -> Reload())
+        notifications -> ShowNotification(tr("Service control"), tr("The service configuration has been successfully reloaded!"));
+    else
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to reload the service configuration! Current settings remain unchanged."));
+}
+
+void MainWindow::serviceShutdown()
+{
+    if (tunedManager -> Shutdown())
+    {
+        markServiceMode();
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully shut down!"));
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control error"), tr("Failed to shut down the service! Current settings remain unchanged."));
+    }
+}
+
 void MainWindow::checkTunedRunning()
 {
     if (!tunedManager -> IsRunning())
@@ -195,16 +242,20 @@ QMenu* MainWindow::createServiceControlSubmenu(QWidget* parent)
     serviceControlMenu -> setTitle(tr("Service control"));
 
     QAction* enableAction = new QAction(tr("Enable the service"), serviceControlMenu);
-    connect(enableAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodEnable); });
+    connect(enableAction, &QAction::triggered, this, &MainWindow::serviceEnableEvent);
     serviceControlMenu -> addAction(enableAction);
 
     QAction* disableAction = new QAction(tr("Disable the service"), serviceControlMenu);
-    connect(disableAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodDisable); });
+    connect(disableAction, &QAction::triggered, this, &MainWindow::serviceDisableEvent);
     serviceControlMenu -> addAction(disableAction);
 
     QAction* reloadAction = new QAction(tr("Reload the service"), serviceControlMenu);
-    connect(reloadAction, &QAction::triggered, this, [this](){ serviceControlEvent(TunedManager::ServiceMethod::MethodReload); });
+    connect(reloadAction, &QAction::triggered, this, &MainWindow::serviceReloadEvent);
     serviceControlMenu -> addAction(reloadAction);
+
+    QAction* shutdownAction = new QAction(tr("Shut down the service"), serviceControlMenu);
+    connect(shutdownAction, &QAction::triggered, this, &MainWindow::serviceShutdownEvent);
+    serviceControlMenu -> addAction(shutdownAction);
 
     return serviceControlMenu;
 }
@@ -271,6 +322,12 @@ void MainWindow::setCurrentProfile(const QString& profile)
     ui -> ProfileSelector -> setCurrentIndex(ui -> ProfileSelector -> findText(profile));
 }
 
+void MainWindow::setProfileExplicitly()
+{
+    if (tunedManager -> IsProfileEmpty())
+        tunedManager -> SetProfileModeAuto();
+}
+
 void MainWindow::markCurrentProfile()
 {
     setCurrentProfile(tunedManager -> GetActiveProfile());
@@ -292,19 +349,6 @@ void MainWindow::markServiceMode()
 void MainWindow::setNotificationsMode()
 {
     notifications -> SetNotificationSoundMode(settings -> GetSoundEnabled());
-}
-
-void MainWindow::serviceControlEvent(const TunedManager::ServiceMethod method)
-{
-    if (tunedManager -> RunServiceMethod(method))
-    {
-        markServiceMode();
-        notifications -> ShowNotification(tr("Service control"), tr("The requested service control operation completed successfully."));
-    }
-    else
-    {
-        notifications -> ShowNotification(tr("Service control error"), tr("Failed to perform the requested service control operation! Current settings remain unchanged."));
-    }
 }
 
 void MainWindow::exitApplication()
@@ -335,6 +379,40 @@ void MainWindow::profileSelectedEvent(const QString& profile)
     const QTunedResult result = tunedManager -> SetActiveProfile(profile);
     if (!result.Success)
         notifications -> ShowNotification(tr("Profile switch error"), tr("Failed to switch the active profile: %1").arg(result.Message));
+}
+
+void MainWindow::serviceEnableEvent()
+{
+    if (!tunedManager -> IsProfileRunning())
+    {
+        setProfileExplicitly();
+        serviceEnable();
+    }
+    else
+    {
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already enabled! No actions performed."));
+    }
+}
+
+void MainWindow::serviceDisableEvent()
+{
+    if (tunedManager -> IsProfileRunning())
+        serviceDisable();
+    else
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already disabled! No actions performed."));
+}
+
+void MainWindow::serviceReloadEvent()
+{
+    serviceReload();
+}
+
+void MainWindow::serviceShutdownEvent()
+{
+    if (tunedManager -> IsProfileRunning() && !tunedManager -> IsProfileEmpty())
+        serviceShutdown();
+    else
+        notifications -> ShowNotification(tr("Service control"), tr("The service is already shut down! No actions performed."));
 }
 
 void MainWindow::closeFormEvent()
