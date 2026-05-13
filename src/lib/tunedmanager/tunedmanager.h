@@ -75,6 +75,14 @@ public:
     bool IsProfileRunning() const;
 
     /**
+     * Check whether the Tuned profile is empty.
+     * @returns Whether the Tuned profile is empty.
+     * @retval true The Tuned profile is empty.
+     * @retval false The Tuned profile is not empty.
+    */
+    bool IsProfileEmpty() const;
+
+    /**
      * Switch Tuned to automatic mode.
      * @returns Result of current operation.
     */

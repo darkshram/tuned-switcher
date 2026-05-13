@@ -65,6 +65,15 @@ bool TunedManager::IsProfileRunning() const
     return DBusReply.value();
 }
 
+bool TunedManager::IsProfileEmpty() const
+{
+    QDBusInterface DBusInterface(TunedBusName, TunedBusPath, TunedBusInterface, DBusInstance);
+    QDBusReply<QString> DBusReply = DBusInterface.call(TunedBusMethodNameActiveProfile);
+    if (!DBusReply.isValid())
+        qCWarning(LogCategories::DBus) << "Failed to determine whether the Tuned profile is empty due to an error:" << DBusReply.error();
+    return DBusReply.value().isEmpty();
+}
+
 QTunedResult TunedManager::SetProfileModeAuto() const
 {
     QDBusInterface DBusInterface(TunedBusName, TunedBusPath, TunedBusInterface, DBusInstance);
