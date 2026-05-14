@@ -348,7 +348,11 @@ void MainWindow::markServiceMode()
     const bool mode = !tunedManager -> IsProfileRunning();
     ui -> ProfileSelector -> setDisabled(mode);
     if (mode)
+    {
+        if (tunedManager -> IsProfileEmpty())
+            resetCurrentProfile();
         ui -> AutoSelect -> setDisabled(mode);
+    }
 }
 
 void MainWindow::setNotificationsMode()
