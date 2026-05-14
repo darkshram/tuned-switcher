@@ -229,7 +229,11 @@ void TrayIcon::markServiceMode()
         const bool mode = !tunedManager -> IsProfileRunning();
         profileActions -> setDisabled(mode);
         if (mode)
+        {
+            if (tunedManager -> IsProfileEmpty())
+                resetCurrentProfile();
             autoProfileAction -> setDisabled(mode);
+        }
     }
 }
 
