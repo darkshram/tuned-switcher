@@ -197,6 +197,7 @@ void MainWindow::serviceShutdown()
 {
     if (tunedManager -> Shutdown())
     {
+        markAutoProfileMode();
         markServiceMode();
         notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully shut down!"));
     }
