@@ -131,6 +131,7 @@ void TrayIcon::serviceShutdown()
 {
     if (tunedManager -> Shutdown())
     {
+        markAutoProfileMode();
         markServiceMode();
         notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully shut down!"));
     }
@@ -406,7 +407,7 @@ void TrayIcon::serviceReloadEvent()
 
 void TrayIcon::serviceShutdownEvent()
 {
-    if (tunedManager -> IsProfileRunning() && !tunedManager -> IsProfileEmpty())
+    if (tunedManager -> IsProfileRunning() || !tunedManager -> IsProfileEmpty())
         serviceShutdown();
     else
         notifications -> ShowNotification(tr("Service control"), tr("The service is already shut down! No actions performed."));
