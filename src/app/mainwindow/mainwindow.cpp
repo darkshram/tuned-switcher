@@ -418,7 +418,7 @@ void MainWindow::serviceReloadEvent()
 
 void MainWindow::serviceShutdownEvent()
 {
-    if (tunedManager -> IsProfileRunning() && !tunedManager -> IsProfileEmpty())
+    if (tunedManager -> IsProfileRunning() || !tunedManager -> IsProfileEmpty())
         serviceShutdown();
     else
         notifications -> ShowNotification(tr("Service control"), tr("The service is already shut down! No actions performed."));
