@@ -50,31 +50,21 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <location line="+12"/>
         <location line="+13"/>
         <location line="+11"/>
-        <location line="+10"/>
+        <location line="+11"/>
         <location line="+41"/>
-        <location line="+151"/>
+        <location line="+160"/>
         <location line="+9"/>
         <location line="+13"/>
         <source>Service control</source>
         <translation>Управление сервисом</translation>
     </message>
     <message>
-        <location line="-248"/>
-        <source>The service has been successfully enabled!</source>
-        <translation>Сервис был успешно запущен!</translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="-254"/>
         <source>Failed to enable the service! Current settings remain unchanged.</source>
         <translation>Не удалось запустить сервис! Текущие настройки не были изменены.</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>The service has been successfully disabled!</source>
-        <translation>Сервис был успешно остановлен!</translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="+13"/>
         <source>Failed to disable the service! Current settings remain unchanged.</source>
         <translation>Не удалось остановить сервис! Текущие настройки не были изменены.</translation>
     </message>
@@ -89,12 +79,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Не удалось перезагрузить конфигурацию сервиса! Текущие настройки не были изменены.</translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>The service has been successfully shut down!</source>
-        <translation>Сервис был успешно отключён!</translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="+13"/>
         <source>Failed to shut down the service! Current settings remain unchanged.</source>
         <translation>Не удалось отключить сервис! Текущие настройки не были изменены.</translation>
     </message>
@@ -129,15 +114,30 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>О программе...</translation>
     </message>
     <message>
-        <location line="-101"/>
+        <location line="-102"/>
         <location line="+13"/>
         <location line="+9"/>
-        <location line="+12"/>
+        <location line="+13"/>
         <source>Service control error</source>
         <translation>Ошибка управления сервисом</translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="-39"/>
+        <source>The service has been successfully enabled! All profile optimizations and tweaks have been enabled.</source>
+        <translation>Сервис был успешно запущен! Все настройки и оптимизации, предоставляемые профилем, были применены.</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The service has been successfully disabled! All profile optimizations and tweaks have been restored to default values.</source>
+        <translation>Сервис был успешно остановлен! Все настройки и оптимизации, предоставляемые профилем, были восстановлены до исходных значений.</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>The service has been successfully shut down! All profile optimizations and tweaks have been restored to default values, and the active profile has been unloaded.</source>
+        <translation>Сервис был успешно отключён! Все настройки и оптимизации, предоставляемые профилем, были восстановлены до исходных значений, а он сам выгружен.</translation>
+    </message>
+    <message>
+        <location line="+175"/>
         <source>The active profile was automatically switched to &lt;b&gt;%1&lt;/b&gt;.</source>
         <translation>Текущий профиль был автоматически переключён на &lt;b&gt;%1&lt;/b&gt;.</translation>
     </message>
@@ -251,22 +251,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Сервис Tuned не запущен, а функция управления сервисами недоступна. Приложение будет завершено.</translation>
     </message>
     <message>
-        <location line="+14"/>
-        <source>The service has been successfully enabled!</source>
-        <translation>Сервис был успешно запущен!</translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="+18"/>
         <source>Failed to enable the service! Current settings remain unchanged.</source>
         <translation>Не удалось запустить сервис! Текущие настройки не были изменены.</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>The service has been successfully disabled!</source>
-        <translation>Сервис был успешно остановлен!</translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="+13"/>
         <source>Failed to disable the service! Current settings remain unchanged.</source>
         <translation>Не удалось остановить сервис! Текущие настройки не были изменены.</translation>
     </message>
@@ -281,17 +271,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Не удалось перезагрузить конфигурацию сервиса! Текущие настройки не были изменены.</translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>The service has been successfully shut down!</source>
-        <translation>Сервис был успешно отключён!</translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="+13"/>
         <source>Failed to shut down the service! Current settings remain unchanged.</source>
         <translation>Не удалось отключить сервис! Текущие настройки не были изменены.</translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+119"/>
         <source>The active profile was automatically switched to &lt;b&gt;%1&lt;/b&gt;.</source>
         <translation>Текущий профиль был автоматически переключён на &lt;b&gt;%1&lt;/b&gt;.</translation>
     </message>
@@ -332,11 +317,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Сервис уже отключён. Никаких действий не производилось.</translation>
     </message>
     <message>
-        <location line="-307"/>
+        <location line="-312"/>
         <location line="+13"/>
         <location line="+11"/>
-        <location line="+10"/>
-        <location line="+132"/>
+        <location line="+11"/>
+        <location line="+136"/>
         <location line="+119"/>
         <location line="+9"/>
         <location line="+13"/>
@@ -344,7 +329,22 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Управление сервисом</translation>
     </message>
     <message>
-        <location line="-139"/>
+        <location line="-312"/>
+        <source>The service has been successfully enabled! All profile optimizations and tweaks have been enabled.</source>
+        <translation>Сервис был успешно запущен! Все настройки и оптимизации, предоставляемые профилем, были применены.</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The service has been successfully disabled! All profile optimizations and tweaks have been restored to default values.</source>
+        <translation>Сервис был успешно остановлен! Все настройки и оптимизации, предоставляемые профилем, были восстановлены до исходных значений.</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>The service has been successfully shut down! All profile optimizations and tweaks have been restored to default values, and the active profile has been unloaded.</source>
+        <translation>Сервис был успешно отключён! Все настройки и оптимизации, предоставляемые профилем, были восстановлены до исходных значений, а он сам выгружен.</translation>
+    </message>
+    <message>
+        <location line="+138"/>
         <source>Enable the service</source>
         <translation>Запустить сервис</translation>
     </message>
@@ -399,15 +399,15 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Не удалось переключить профиль из-за ошибки: %1</translation>
     </message>
     <message>
-        <location line="-269"/>
+        <location line="-274"/>
         <location line="+13"/>
         <location line="+9"/>
-        <location line="+12"/>
+        <location line="+13"/>
         <source>Service control error</source>
         <translation>Ошибка управления сервисом</translation>
     </message>
     <message>
-        <location line="+278"/>
+        <location line="+282"/>
         <source>Settings saved</source>
         <translation>Настройки сохранены</translation>
     </message>
