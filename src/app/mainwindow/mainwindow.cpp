@@ -164,7 +164,7 @@ void MainWindow::serviceEnable()
     if (tunedManager -> Enable())
     {
         markServiceMode();
-        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully enabled!"));
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully enabled! All profile optimizations and tweaks have been enabled."));
     }
     else
     {
@@ -177,7 +177,7 @@ void MainWindow::serviceDisable()
     if (tunedManager -> Disable())
     {
         markServiceMode();
-        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully disabled!"));
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully disabled! All profile optimizations and tweaks have been restored to default values."));
     }
     else
     {
@@ -199,7 +199,7 @@ void MainWindow::serviceShutdown()
     {
         markAutoProfileMode();
         markServiceMode();
-        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully shut down!"));
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully shut down! All profile optimizations and tweaks have been restored to default values, and the active profile has been unloaded."));
     }
     else
     {
