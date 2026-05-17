@@ -89,6 +89,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent* event)
 {
     if (event -> button() == Qt::LeftButton)
         mMoving = false;
+    QWidget::mouseReleaseEvent(event);
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
