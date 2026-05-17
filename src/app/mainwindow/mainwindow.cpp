@@ -29,6 +29,7 @@
 #include <QThread>
 #include <QTimer>
 #include <QWidget>
+#include <QWindow>
 
 #include "about/about.h"
 #include "appconstants/appconstants.h"
@@ -70,7 +71,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::mousePressEvent(QMouseEvent* event)
 {
-    if (event -> button() == Qt::LeftButton)
+    if (event -> button() == Qt::LeftButton && !windowHandle() -> startSystemMove())
     {
         mMoving = true;
         mLastMousePosition = event -> pos();
