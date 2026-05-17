@@ -82,6 +82,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
 {
     if (event -> buttons().testFlag(Qt::LeftButton) && mMoving)
         move(pos() + (event -> pos() - mLastMousePosition));
+    QWidget::mouseMoveEvent(event);
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent* event)
