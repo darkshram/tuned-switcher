@@ -16,7 +16,6 @@
 #include <QCloseEvent>
 #include <QComboBox>
 #include <QDialog>
-#include <QFlags>
 #include <QGraphicsDropShadowEffect>
 #include <QKeyEvent>
 #include <QMenu>
@@ -71,25 +70,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::mousePressEvent(QMouseEvent* event)
 {
-    if (event -> button() == Qt::LeftButton && !windowHandle() -> startSystemMove())
-    {
-        mMoving = true;
-        mLastMousePosition = event -> pos();
-    }
-}
-
-void MainWindow::mouseMoveEvent(QMouseEvent* event)
-{
-    if (event -> buttons().testFlag(Qt::LeftButton) && mMoving)
-        move(pos() + (event -> pos() - mLastMousePosition));
-    QWidget::mouseMoveEvent(event);
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent* event)
-{
     if (event -> button() == Qt::LeftButton)
-        mMoving = false;
-    QWidget::mouseReleaseEvent(event);
+        windowHandle() -> startSystemMove();
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
