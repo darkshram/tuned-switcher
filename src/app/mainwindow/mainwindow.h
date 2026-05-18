@@ -56,22 +56,10 @@ public:
 
 protected:
     /**
-     * Mouse move event handler.
-     * @param event Event object instance.
-    */
-    void mouseMoveEvent(QMouseEvent*) override;
-
-    /**
      * Mouse button press event handler.
      * @param event Event object instance.
     */
     void mousePressEvent(QMouseEvent*) override;
-
-    /**
-     * Mouse button release event handler.
-     * @param event Event object instance.
-    */
-    void mouseReleaseEvent(QMouseEvent*) override;
 
     /**
      * Form close event handler.
@@ -329,16 +317,6 @@ private:
      * Stores pointer to the TunedManager class instance.
     */
     TunedManager* tunedManager;
-
-    /**
-     * Stores the last mouse position.
-    */
-    QPoint mLastMousePosition;
-
-    /**
-     * Stores the form moving state.
-    */
-    bool mMoving;
 };
 
 #endif // MAINWINDOW_H

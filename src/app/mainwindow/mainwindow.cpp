@@ -75,20 +75,6 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
         windowHandle() -> startSystemMove();
 }
 
-void MainWindow::mouseMoveEvent(QMouseEvent* event)
-{
-    if (event -> buttons().testFlag(Qt::LeftButton) && mMoving)
-        move(pos() + (event -> pos() - mLastMousePosition));
-    QWidget::mouseMoveEvent(event);
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent* event)
-{
-    if (event -> button() == Qt::LeftButton)
-        mMoving = false;
-    QWidget::mouseReleaseEvent(event);
-}
-
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     saveFormSettings();
