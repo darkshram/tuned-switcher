@@ -71,11 +71,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::mousePressEvent(QMouseEvent* event)
 {
-    if (event -> button() == Qt::LeftButton && !windowHandle() -> startSystemMove())
-    {
-        mMoving = true;
-        mLastMousePosition = event -> pos();
-    }
+    if (event -> button() == Qt::LeftButton)
+        windowHandle() -> startSystemMove();
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent* event)
