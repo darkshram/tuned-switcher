@@ -16,7 +16,6 @@
 #include <QCloseEvent>
 #include <QComboBox>
 #include <QDialog>
-#include <QFlags>
 #include <QGraphicsDropShadowEffect>
 #include <QKeyEvent>
 #include <QMenu>
