@@ -26,7 +26,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Авто-выбор профиля</translation>
     </message>
     <message>
-        <location filename="../../src/app/mainwindow/mainwindow.cpp" line="+141"/>
+        <location filename="../../src/app/mainwindow/mainwindow.cpp" line="+126"/>
         <source>Cannot start Tuned service via D-Bus call. Terminating.</source>
         <translation>Не удалось запустить сервис Tuned при помощи D-Bus. Приложение будет завершено.</translation>
     </message>
@@ -59,7 +59,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Управление сервисом</translation>
     </message>
     <message>
-        <location line="-254"/>
+        <location line="-258"/>
+        <source>The service has been successfully enabled! All profile optimizations and tweaks have been applied.</source>
+        <translation>Сервис был успешно запущен! Все настройки и оптимизации, предоставляемые профилем, были применены.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Failed to enable the service! Current settings remain unchanged.</source>
         <translation>Не удалось запустить сервис! Текущие настройки не были изменены.</translation>
     </message>
@@ -122,12 +127,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Ошибка управления сервисом</translation>
     </message>
     <message>
-        <location line="-39"/>
-        <source>The service has been successfully enabled! All profile optimizations and tweaks have been enabled.</source>
-        <translation>Сервис был успешно запущен! Все настройки и оптимизации, предоставляемые профилем, были применены.</translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location line="-26"/>
         <source>The service has been successfully disabled! All profile optimizations and tweaks have been restored to default values.</source>
         <translation>Сервис был успешно остановлен! Все настройки и оптимизации, предоставляемые профилем, были восстановлены до исходных значений.</translation>
     </message>
@@ -251,7 +251,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Сервис Tuned не запущен, а функция управления сервисами недоступна. Приложение будет завершено.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+14"/>
+        <source>The service has been successfully enabled! All profile optimizations and tweaks have been applied.</source>
+        <translation>Сервис был успешно запущен! Все настройки и оптимизации, предоставляемые профилем, были применены.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Failed to enable the service! Current settings remain unchanged.</source>
         <translation>Не удалось запустить сервис! Текущие настройки не были изменены.</translation>
     </message>
@@ -329,12 +334,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <translation>Управление сервисом</translation>
     </message>
     <message>
-        <location line="-312"/>
-        <source>The service has been successfully enabled! All profile optimizations and tweaks have been enabled.</source>
-        <translation>Сервис был успешно запущен! Все настройки и оптимизации, предоставляемые профилем, были применены.</translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location line="-299"/>
         <source>The service has been successfully disabled! All profile optimizations and tweaks have been restored to default values.</source>
         <translation>Сервис был успешно остановлен! Все настройки и оптимизации, предоставляемые профилем, были восстановлены до исходных значений.</translation>
     </message>

@@ -149,7 +149,7 @@ void MainWindow::serviceEnable()
     if (tunedManager -> Enable())
     {
         markServiceMode();
-        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully enabled! All profile optimizations and tweaks have been enabled."));
+        notifications -> ShowNotification(tr("Service control"), tr("The service has been successfully enabled! All profile optimizations and tweaks have been applied."));
     }
     else
     {
