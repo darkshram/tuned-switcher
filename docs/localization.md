@@ -6,7 +6,7 @@ The program will try to find and load translations from the following directorie
 
   1. `translations` relative to current binary
   2. `$DATAROOTDIR/tuned-switcher/translations`
-  3. `/usr/share/tuned-switcher/translations`
+  3. hard-coded fallback path `/usr/share/tuned-switcher/translations`
 
 Starting with the first, the program will attempt to traverse all directories down to the last one. If a directory exists, it will be used for loading translations. If no directories exist, the function will be disabled.
 
