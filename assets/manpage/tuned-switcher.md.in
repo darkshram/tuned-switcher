@@ -33,17 +33,37 @@ This behavior can be overridden using the environment variable.
 
 # USING APPLICATION
 
-## Profile selection
+## Performance profiles
+
+### Profile selection
 
 Use the "Active profile" selector to choose one of the available performance profiles.
 
 The selected profile will be applied immediately and a notification message will be shown.
 
-## Automatic profile selection
+### Automatic profile selection
 
 Use the "Auto-select profile" checkbox to allow the Tuned service to select performance profile for you.
 
 If this checkbox is not available (grayed), this feature is already enabled and in use.
+
+## Service control functions
+
+### Enable the service
+
+Enable the service and apply the profile optimizations and tweaks from the selected profile.
+
+### Disable the service
+
+Disable the service and restore the profile optimizations and tweaks to factory default values.
+
+### Reload the service
+
+Reload the service configuration after adding, removing or editing profiles. To refresh the list of available profiles, you will need to restart the program.
+
+### Shut down the service
+
+Shut down the service, restore the profile optimizations and tweaks to factory default values, and unload the active profile.
 
 # PROGRAM SETTINGS
 
@@ -110,6 +130,18 @@ sudo systemctl enable --now tuned.service
 To enable program startup, just open the **Settings** dialog and set the **Run application on startup** checkbox.
 
 Also, the autorun settings of current desktop environment can be used too.
+
+# LOCALIZATION
+
+## Loading translations
+
+The program will try to find and load translations from the following directories:
+
+  1. **translations** relative to current binary
+  2. **@CMAKE_INSTALL_FULL_DATAROOTDIR@/tuned-switcher/translations**
+  3. hard-coded fallback path **/usr/share/tuned-switcher/translations**
+
+Starting with the first, the program will attempt to traverse all directories down to the last one. If a directory exists, it will be used for loading translations. If no directories exist, the function will be disabled.
 
 # AUTHORS
 
