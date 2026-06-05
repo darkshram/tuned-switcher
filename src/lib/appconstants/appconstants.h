@@ -17,7 +17,8 @@
 /**
  * Namespace for working with various constants used in project.
 */
-namespace AppConstants {
+namespace AppConstants
+{
     /**
      * Returns the application company public name.
      * Used as a public name in various dialogs.
